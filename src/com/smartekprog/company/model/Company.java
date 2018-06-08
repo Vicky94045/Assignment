@@ -57,6 +57,16 @@ public class Company {
 		Company_Contact_No = company_Contact_No;
 		Type = type;
 	}
+	
+	
+	public Company(String company_Name, String company_Address, String company_Contact_No,
+			String type) {
+		super();		
+		Company_Name = company_Name;
+		Company_Address = company_Address;
+		Company_Contact_No = company_Contact_No;
+		Type = type;
+	}
 
 	@Override
 	public String toString() {

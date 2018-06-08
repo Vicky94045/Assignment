@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="create.css">
 <script type="text/javascript">
 function Mysubmit() {
-	var cid=document.forms["myform"]["cid"].value;
+	//var cid=document.forms["myform"]["cid"].value;
 	var cn=document.forms["myform"]["cname"].value;
 	var ca=document.forms["myform"]["caddress"].value;
 	var cnum=document.forms["myform"]["cnumber"].value;
@@ -32,7 +32,7 @@ function Mysubmit() {
 </script>
 </head>
 <body>
-<a href="Company.jsp">Company Function</a> <a href="Select.jsp">Home</a>
+<a href="Select.jsp">Home</a>
 <% String cid=(String)request.getAttribute("present"); 
 Company comp=(Company)request.getAttribute("comp");
 %>
@@ -41,7 +41,6 @@ Company comp=(Company)request.getAttribute("comp");
 <h3>Company Registration form</h3>
 <span><%if(comp!=null){ out.print("Duplicate entry company id already present");}%></span>
 <fieldset>
-<input type="text" name="cid" placeholder="Enter Company Id" <% if(comp!=null){ %> value="<% out.print(comp.getCompany_id());%>" <%} %> >
 <%if(cid!=null){ %><%} %><span id="ciderr"></span>
 </fieldset>
 <fieldset> 

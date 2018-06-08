@@ -21,6 +21,7 @@ import com.google.gson.JsonArray;
 import com.smartekprog.company.model.Company;
 import com.smartekprog.connect.jdbcconnect;
 import com.smartekprog.employee.model.Employee;
+import com.smartekprog.empservlet.DAO.EmployeeDAO;
 
 /**
  * Servlet implementation class EmployeeRetrive
@@ -39,42 +40,15 @@ public class EmployeeRetrive extends HttpServlet {
 		Employee emp = null;
 		System.out.println("Inside emp retrive");
 		List<Employee> clist = new ArrayList<Employee>();
-		jdbcconnect con = new jdbcconnect();
-		Statement st = con.connect();
-		String sql = "select * from Employee";
 		JsonArray jsonArray = new JsonArray();
 		Gson gson=new Gson();
-		try {
-			ResultSet rs = st.executeQuery(sql);
-			while (rs.next()) {
-				emp=new Employee();
-				emp.setEmpNo(rs.getInt(1));
-				emp.setFirst_Name(rs.getString(2));
-				emp.setLast_Name(rs.getString(3));
-				emp.setAge(rs.getInt(4));
-				emp.setMailId(rs.getString(5));
-				emp.setAddress(rs.getString(6));
-				emp.setBirthdate(rs.getDate(7));
-				emp.setSalary(rs.getInt(8));
-				emp.setGender(rs.getString(9));
-				emp.setMobile_No(rs.getString(10));
-				emp.setHire_date(rs.getDate(11));				
-				emp.setCompany_Name(rs.getString(12));
-				emp.setCompany_id(rs.getInt(13));
-			//	System.out.println(emp.toString());
-				clist.add(emp);
-				
-			}			
-			
+		EmployeeDAO edao=new EmployeeDAO();
+		clist=edao.getAllEmployee();	
 			request.setAttribute("List", clist);			
 			response.setContentType("application/json");
 			String data=gson.toJson(clist);		
 			response.getWriter().write(data);			
-		} catch (SQLException e) {
-			out.println("Error : " + e);
-			System.out.println("Error : " + e);
-		}	
-	}
+	} 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

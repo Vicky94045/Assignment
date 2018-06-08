@@ -29,21 +29,21 @@ public class CompanyCreateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		out = response.getWriter();
-		Company company = new Company(Long.parseLong(request.getParameter("cid")), request.getParameter("cname"),
+		Company company = new Company(request.getParameter("cname"),
 				request.getParameter("caddress"),request.getParameter("cnumber"),
 				request.getParameter("ctype"));
 
 		jdbcconnect jd = new jdbcconnect();
 		Statement st = jd.connect();
 
-		String sql = "insert into company values (" + company.getCompany_id() + ",'" + company.getCompany_Name() + "','"
-				+ company.getCompany_Address() + "'," + company.getCompany_Contact_No() + ",'" + company.getType()
-				+ "')";
+		String sql = "insert into company (company_name,company_address,company_number,company_type) values ('" + company.getCompany_Name() + "','"
+				+ company.getCompany_Address() + "'," + company.getCompany_Contact_No() + ",'" + company.getType()+ "')";
 		try {
 			int check = st.executeUpdate(sql);
 			System.out.println("check: " + check);
 			if (check > 0) {
-				out.println("Company created");
+				RequestDispatcher res=getServletContext().getRequestDispatcher("/Select.jsp");
+				res.forward(request, response);		
 			}
 		} catch (SQLException e) {
 			System.out.println("Error while inserting data :" + e);

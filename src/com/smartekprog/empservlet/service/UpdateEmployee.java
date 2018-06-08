@@ -30,19 +30,11 @@ public class UpdateEmployee extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-
+		System.out.println("In update emp");
 		Employee emp = new Employee();
 		emp.setEmpNo(Integer.parseInt(request.getParameter("Empno")));
 		emp.setFirst_Name(request.getParameter(("Fname")));
@@ -53,26 +45,32 @@ public class UpdateEmployee extends HttpServlet {
 		emp.setSalary(Integer.parseInt(request.getParameter("Salary")));
 		emp.setGender(request.getParameter("gender"));
 		emp.setMobile_No(request.getParameter("Mobile"));
-		emp.setCompany_id(Integer.parseInt(request.getParameter("cid")));
-		// emp.setBirthdate(new
-		// SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dob")));
-		// emp.setHire_date(new
-		// SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("Hiredate")));
-		emp.setBirthdate(java.sql.Date.valueOf(request.getParameter("dob")));
-		emp.setHire_date(java.sql.Date.valueOf(request.getParameter("Hiredate")));
+		String cname=request.getParameter("cname");
+		try {
+		//emp.setBirthdate(java.sql.Date.valueOf(request.getParameter("dob")));
+		//emp.setHire_date(java.sql.Date.valueOf(request.getParameter("Hiredate")));
+		}catch (Exception e) {
+			System.out.println("error for date "+e);
+		}
 		String sql = "update employee SET Empno="+emp.getEmpNo()+",First_Name='" + emp.getFirst_Name()
 				+ "',Last_Name='" + emp.getLast_Name() + "',Age=" + emp.getAge() + ",Mail_id='" + emp.getMailId()
-				+ "',Address='" + emp.getAddress() + "',Birthdate='" + emp.getBirthdate() + "',Salary=" + emp.getSalary()
-				+ ",Gender='" + emp.getGender() + "',Mobile_no='" + emp.getMobile_No() + "',Hire_Date='"
-				+ emp.getHire_date() + "',Company_id='" + emp.getCompany_id() + "' where Empno=" + emp.getEmpNo() + ";";
+				+ "',Address='" + emp.getAddress() + "',Salary=" + emp.getSalary()
+				+ ",Gender='" + emp.getGender() + "',Mobile_no='" + emp.getMobile_No() + "' where Empno=" + emp.getEmpNo() + ";";
+		System.out.println(sql);
 		jdbcconnect con = new jdbcconnect();
 		Statement st = con.connect();
 		try {
 			int i = st.executeUpdate(sql);
 			if (i == 1) {
-				out.println("Record updated..");
+				//out.println("Record updated..");
+				request.setAttribute("result","Record updated");			
+				//response.setContentType("application/json");
+				String data="Record updated";
+				response.getWriter().write(data);
 			} else {
-				out.print("Record not updated");
+				//out.print("Record not updated");
+				String data="Record Not updated";
+				response.getWriter().write(data);
 			}
 		}catch (SQLIntegrityConstraintViolationException e) {
 			System.out.println("Company id not present");

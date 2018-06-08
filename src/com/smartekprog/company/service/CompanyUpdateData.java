@@ -22,11 +22,12 @@ public class CompanyUpdateData extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		System.out.println("Inside Comp update");	
 		PrintWriter out = response.getWriter();
 		String check=request.getParameter("cid");
+		System.out.println(request.getParameter("cname"));
 		Company company = new Company(Long.parseLong((request.getParameter("cid"))), request.getParameter("cname"),
 				request.getParameter("caddress"), request.getParameter("cnumber"), request.getParameter("ctype"));
 		HttpSession session = request.getSession();
@@ -41,19 +42,17 @@ public class CompanyUpdateData extends HttpServlet {
 			System.out.println("error value if no error is 1 : " + error);			
 			if(error==1)
 			{
-			out.println("Data updated successfully");
+			//out.println("Data updated successfully");
+				String data="Record updated";
+				response.getWriter().write(data);
 			}else {
-				out.println("Data fail to update");
+				//out.println("Data fail to update");
+				String data="Record Not updated";
+				response.getWriter().write(data);
 			}			
 		} catch (SQLException e) {
 			System.out.println("Exception : " + e);
 		}
-	}
-
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
 	}
 
 }

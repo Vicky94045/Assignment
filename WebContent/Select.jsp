@@ -30,9 +30,6 @@
 <span id="span">
 </span>
 </article>
-<button id="button">
- </button>
-
 </div>
 </div>
 </body>

@@ -6,6 +6,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login Form</title>
 <link rel="stylesheet" type="text/css" href="create.css">
+<script type="text/javascript">
+function SignUp() {
+	window.location="SignUp.jsp"
+}
+
+</script>
+
 </head>
 <body>
 <% String error=(String)request.getAttribute("Fial"); %>
@@ -21,6 +28,7 @@ Enter password<br><input name="password" type="password" style="width: 100%;heig
 </fieldset>
 <fieldset>
 <input type="submit" value="Login">
+<button type="button" onclick="SignUp()">Create User</button>
 </fieldset>
 </form>
 </div>
